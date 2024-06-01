@@ -26,6 +26,9 @@ import java.util.Map;
 @Pseudo
 @Mixin(AbstractComponentContainer.class)
 public class AbstractComponentContainerMixin {
+    // TODO: fix this.
+
+    /*
     @Unique private final Map<String, NbtCompound> unknownComponents = new HashMap<>();
 
     @Inject(method = "fromTag", at = @At("HEAD"), remap = false)
@@ -70,4 +73,5 @@ public class AbstractComponentContainerMixin {
             componentsTag.put(entry.getKey(), entry.getValue());
         }
     }
+    */
 }

@@ -61,7 +61,7 @@ public abstract class ItemStackMixin {
 
     @Inject(method = "writeNbt", at = @At("RETURN"))
     private void writeCCAComponents(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir) {
-        if (FabricLoader.getInstance().isModLoaded("cardinal-components-item")) return;
+//        if (FabricLoader.getInstance().isModLoaded("cardinal-components-item")) return;
 
         componentHolder.toTag(nbt);
     }

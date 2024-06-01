@@ -34,7 +34,7 @@ public class FakeArmorStandEntity extends ArmorStandEntity {
         setCustomNameVisible(true);
 
         NbtList pos = originalData.getList("Pos", NbtElement.DOUBLE_TYPE);
-        this.setPos(pos.getDouble(0), pos.getDouble(1), pos.getDouble(2));
+        this.setPosition(pos.getDouble(0), pos.getDouble(1), pos.getDouble(2));
 
         NbtList rot = originalData.getList("Rotation", NbtElement.FLOAT_TYPE);
         this.setRotation(rot.getFloat(0), rot.getFloat(1));

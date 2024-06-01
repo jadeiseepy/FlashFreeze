@@ -23,26 +23,26 @@ public class TestModComponents implements BlockComponentInitializer, ChunkCompon
 
     @Override
     public void registerLevelComponentFactories(LevelComponentFactoryRegistry registry) {
-        registry.register(FlashFreezeTestMod.TEST_COMPONENT, l -> new TestComponentImpl());
+//        registry.register(FlashFreezeTestMod.TEST_COMPONENT, l -> new TestComponentImpl());
     }
 
     @Override
     public void registerScoreboardComponentFactories(ScoreboardComponentFactoryRegistry registry) {
-        registry.registerScoreboardComponent(FlashFreezeTestMod.TEST_COMPONENT, (scoreboard, server) -> new TestComponentImpl());
+//        registry.registerScoreboardComponent(FlashFreezeTestMod.TEST_COMPONENT, (scoreboard, server) -> new TestComponentImpl());
     }
 
     @Override
     public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
-        registry.register(FlashFreezeTestMod.TEST_COMPONENT, world -> new TestComponentImpl());
+//        registry.register(FlashFreezeTestMod.TEST_COMPONENT, world -> new TestComponentImpl());
     }
 
     @Override
     public void registerBlockComponentFactories(BlockComponentFactoryRegistry registry) {
-        registry.registerFor(ChestBlockEntity.class, FlashFreezeTestMod.TEST_COMPONENT, be -> new TestComponentImpl());
+//        registry.registerFor(ChestBlockEntity.class, FlashFreezeTestMod.TEST_COMPONENT, be -> new TestComponentImpl());
     }
 
     @Override
     public void registerChunkComponentFactories(ChunkComponentFactoryRegistry registry) {
-        registry.register(FlashFreezeTestMod.TEST_COMPONENT, chunk -> new TestComponentImpl());
+//        registry.register(FlashFreezeTestMod.TEST_COMPONENT, chunk -> new TestComponentImpl());
     }
 }
