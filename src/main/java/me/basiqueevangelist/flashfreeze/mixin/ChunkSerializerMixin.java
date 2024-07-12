@@ -7,7 +7,6 @@ import com.mojang.serialization.DynamicOps;
 import me.basiqueevangelist.flashfreeze.UnknownBiome;
 import me.basiqueevangelist.flashfreeze.UnknownBlockState;
 import me.basiqueevangelist.flashfreeze.access.ChunkAccess;
-import me.basiqueevangelist.flashfreeze.chunk.FakeWorldChunk;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
@@ -24,6 +23,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ProtoChunk;
 import net.minecraft.world.poi.PointOfInterestStorage;
+import net.minecraft.world.storage.StorageKey;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,17 +37,11 @@ public class ChunkSerializerMixin {
     private static boolean dontLoadIfUnknown(NbtCompound tag, String name) {
         if (tag.contains("id", NbtElement.STRING_TYPE)) {
             String id = tag.getString("id");
-            if (!id.equals("DUMMY") && !Registries.BLOCK_ENTITY_TYPE.containsId(new Identifier(id)))
+            if (!id.equals("DUMMY") && !Registries.BLOCK_ENTITY_TYPE.containsId(Identifier.of(id)))
                 return true;
         }
 
         return tag.getBoolean(name);
-    }
-
-    @Inject(method = "serialize", at = @At("HEAD"), cancellable = true)
-    private static void skipIfFake(ServerWorld world, Chunk chunk, CallbackInfoReturnable<NbtCompound> cir) {
-        if (chunk instanceof FakeWorldChunk)
-            cir.setReturnValue(((FakeWorldChunk) chunk).getUpdatedTag());
     }
 
     @Inject(method = "serialize", at = @At("RETURN"))
@@ -59,7 +53,7 @@ public class ChunkSerializerMixin {
     }
 
     @Inject(method = "deserialize", at = @At("RETURN"))
-    private static void readCCAComponents(ServerWorld world, PointOfInterestStorage poiStorage, ChunkPos chunkPos, NbtCompound nbt, CallbackInfoReturnable<ProtoChunk> cir) {
+    private static void readCCAComponents(ServerWorld world, PointOfInterestStorage poiStorage, StorageKey key, ChunkPos chunkPos, NbtCompound nbt, CallbackInfoReturnable<ProtoChunk> cir) {
         if (FabricLoader.getInstance().isModLoaded("cardinal-components-chunk")) return;
 
         ((ChunkAccess) cir.getReturnValue()).flashfreeze$getComponentHolder().fromTag(nbt);
@@ -73,7 +67,7 @@ public class ChunkSerializerMixin {
             public <T> DataResult<Pair<Object, T>> decode(DynamicOps<T> ops, T input) {
                 if (ops instanceof NbtOps && input instanceof NbtCompound tag) {
                     if (tag.contains("Name", NbtElement.STRING_TYPE)) {
-                        if (!Registries.BLOCK.containsId(new Identifier(tag.getString("Name")))) {
+                        if (!Registries.BLOCK.containsId(Identifier.of(tag.getString("Name")))) {
                             return DataResult.success(Pair.of(UnknownBlockState.fromTag(tag), ops.empty()));
                         }
                     }
@@ -92,9 +86,9 @@ public class ChunkSerializerMixin {
         };
     }
 
-    @Redirect(method = "createCodec", at = @At(value = "INVOKE", target = "Lnet/minecraft/registry/Registry;createEntryCodec()Lcom/mojang/serialization/Codec;"))
+    @Redirect(method = "createCodec", at = @At(value = "INVOKE", target = "Lnet/minecraft/registry/Registry;getEntryCodec()Lcom/mojang/serialization/Codec;"))
     private static Codec<Object> test(Registry<Biome> biomes) {
-        var old = biomes.createEntryCodec();
+        var old = biomes.getEntryCodec();
         return new Codec<>() {
             @SuppressWarnings({"unchecked", "rawtypes"})
             @Override

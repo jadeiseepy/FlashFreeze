@@ -9,6 +9,7 @@ import net.minecraft.world.ChunkSerializer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ProtoChunk;
 import net.minecraft.world.poi.PointOfInterestStorage;
+import net.minecraft.world.storage.StorageKey;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +26,7 @@ public class ChunkSerializerMixin {
     }
 
     @Inject(method = "deserialize", at = @At("RETURN"))
-    private static void readCapabilities(ServerWorld world, PointOfInterestStorage poiStorage, ChunkPos chunkPos, NbtCompound nbt, CallbackInfoReturnable<ProtoChunk> cir) {
+    private static void readCapabilities(ServerWorld world, PointOfInterestStorage poiStorage, StorageKey key, ChunkPos chunkPos, NbtCompound nbt, CallbackInfoReturnable<ProtoChunk> cir) {
         CapabilityHolder holder = ((FabricChunkAccess) cir.getReturnValue()).flashfreeze$getCapabilityHolder();
         if (holder != null)
             holder.toTag(nbt);

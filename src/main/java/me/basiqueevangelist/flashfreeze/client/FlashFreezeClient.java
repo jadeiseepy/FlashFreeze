@@ -1,15 +1,13 @@
 package me.basiqueevangelist.flashfreeze.client;
 
+import eu.pb4.polymer.networking.api.client.PolymerClientNetworking;
 import me.basiqueevangelist.flashfreeze.FlashFreeze;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import org.slf4j.LoggerFactory;
+import net.minecraft.nbt.NbtInt;
 
 public class FlashFreezeClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        ClientPlayNetworking.registerGlobalReceiver(FlashFreeze.MALDENHAGEN, (client, handler, buf, responseSender) -> {
-            LoggerFactory.getLogger("FlashFreeze").warn("Why are you malding?");
-        });
+        PolymerClientNetworking.setClientMetadata(FlashFreeze.NETWORK_VERSION_ID, NbtInt.of(FlashFreeze.NETWORK_VERISON));
     }
 }

@@ -1,19 +1,18 @@
 package me.basiqueevangelist.flashfreeze.testmod;
 
-import dev.onyxstudios.cca.api.v3.block.BlockComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.block.BlockComponentInitializer;
-import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentInitializer;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import dev.onyxstudios.cca.api.v3.level.LevelComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.level.LevelComponentInitializer;
-import dev.onyxstudios.cca.api.v3.scoreboard.ScoreboardComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.scoreboard.ScoreboardComponentInitializer;
-import dev.onyxstudios.cca.api.v3.world.WorldComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
-import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.LivingEntity;
+import org.ladysnake.cca.api.v3.block.BlockComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.block.BlockComponentInitializer;
+import org.ladysnake.cca.api.v3.chunk.ChunkComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.chunk.ChunkComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.level.LevelComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.level.LevelComponentInitializer;
+import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.scoreboard.ScoreboardComponentInitializer;
+import org.ladysnake.cca.api.v3.world.WorldComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.world.WorldComponentInitializer;
 
 public class TestModComponents implements BlockComponentInitializer, ChunkComponentInitializer, EntityComponentInitializer, WorldComponentInitializer, LevelComponentInitializer, ScoreboardComponentInitializer {
     @Override

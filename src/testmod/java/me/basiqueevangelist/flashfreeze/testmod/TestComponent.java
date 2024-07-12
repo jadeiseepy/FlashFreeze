@@ -1,8 +1,8 @@
 package me.basiqueevangelist.flashfreeze.testmod;
 
-import dev.onyxstudios.cca.api.v3.component.ComponentV3;
+import org.ladysnake.cca.api.v3.component.Component;
 
-public interface TestComponent extends ComponentV3 {
+public interface TestComponent extends Component {
     int getValue();
     void setValue(int value);
 }

@@ -16,7 +16,7 @@ public class CapabilityHolder {
         if (tag.contains("ForgeCaps", NbtElement.COMPOUND_TYPE)) {
             NbtCompound componentMap = tag.getCompound("ForgeCaps");
             for (String key : componentMap.getKeys()) {
-                Identifier componentId = new Identifier(key);
+                Identifier componentId = Identifier.of(key);
                 capabilities.put(componentId, componentMap.get(key));
             }
         }

@@ -24,7 +24,7 @@ public class LevelPropertiesMixin {
     @Unique private final ComponentHolder componentHolder = new ComponentHolder();
 
     @Inject(method = "readProperties", at = @At("RETURN"))
-    private static void readCCAComponents(Dynamic<?> dynamic, DataFixer dataFixer, int dataVersion, @Nullable NbtCompound playerData, LevelInfo levelInfo, SaveVersionInfo saveVersionInfo, LevelProperties.SpecialProperty specialProperty, GeneratorOptions generatorOptions, Lifecycle lifecycle, CallbackInfoReturnable<LevelProperties> cir) {
+    private static void readCCAComponents(Dynamic<?> dynamic, LevelInfo info, LevelProperties.SpecialProperty specialProperty, GeneratorOptions generatorOptions, Lifecycle lifecycle, CallbackInfoReturnable<LevelProperties> cir) {
         if (FabricLoader.getInstance().isModLoaded("cardinal-components-level")) return;
 
         ((LevelPropertiesMixin)(Object) cir.getReturnValue()).componentHolder.fromTag((NbtCompound) dynamic.getValue());

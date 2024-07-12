@@ -23,7 +23,7 @@ public class ComponentHolder {
             NbtList list = (NbtList) tag.get("cardinal_components");
             for (int i = 0; i < list.size(); i++) {
                 NbtCompound origComponentTag = list.getCompound(i);
-                Identifier componentId = new Identifier(origComponentTag.getString("componentId"));
+                Identifier componentId = Identifier.of(origComponentTag.getString("componentId"));
                 NbtCompound componentTag = origComponentTag.copy();
                 componentTag.remove("componentId");
                 components.put(componentId, componentTag);
@@ -31,7 +31,7 @@ public class ComponentHolder {
         } else if (tag.contains("cardinal_components", NbtElement.COMPOUND_TYPE)) {
             NbtCompound componentMap = tag.getCompound("cardinal_components");
             for (String key : componentMap.getKeys()) {
-                Identifier componentId = new Identifier(key);
+                Identifier componentId = Identifier.of(key);
                 components.put(componentId, componentMap.getCompound(key));
             }
         }

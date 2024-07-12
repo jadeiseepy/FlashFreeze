@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public record UnknownBlockState(Identifier blockId, Map<String, String> properties) implements UnknownReplacer {
     public static UnknownBlockState fromTag(NbtCompound tag) {
-        Identifier blockId = new Identifier(tag.getString("Name"));
+        Identifier blockId = Identifier.of(tag.getString("Name"));
         Map<String, String> properties = new HashMap<>();
 
         if (tag.contains("Properties", NbtElement.COMPOUND_TYPE)) {

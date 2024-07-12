@@ -19,7 +19,7 @@ import java.util.Optional;
 public class EntityTypeMixin {
     @Inject(method = "getEntityFromNbt", at = @At("HEAD"), cancellable = true)
     private static void makeFakeEntityIfNeeded(NbtCompound nbt, World world, CallbackInfoReturnable<Optional<Entity>> cir) {
-        if (nbt.contains("id", NbtElement.STRING_TYPE) && !Registries.ENTITY_TYPE.containsId(new Identifier(nbt.getString("id")))) {
+        if (nbt.contains("id", NbtElement.STRING_TYPE) && !Registries.ENTITY_TYPE.containsId(Identifier.of(nbt.getString("id")))) {
             cir.setReturnValue(Optional.of(new FakeArmorStandEntity(world, nbt)));
         }
     }

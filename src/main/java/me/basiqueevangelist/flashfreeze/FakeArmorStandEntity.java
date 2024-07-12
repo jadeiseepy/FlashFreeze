@@ -74,13 +74,15 @@ public class FakeArmorStandEntity extends ArmorStandEntity {
         if (!source.isSourceCreativePlayer()) return false;
 
         if (source.getAttacker().isSneaking()) {
-            ItemStack droppedStack = new ItemStack(Items.ARMOR_STAND);
-            var newEntityTag = originalData.copy();
-            newEntityTag.remove("UUID");
-            droppedStack.getOrCreateNbt().put("OriginalEntityData", newEntityTag);
-            droppedStack.getOrCreateNbt().putInt("CustomModelData", 10000);
-            droppedStack.setCustomName(Text.of("Unknown entity " + originalData.getString("id")));
-            Block.dropStack(this.getWorld(), this.getBlockPos(), droppedStack);
+            // TODO: redo this.
+
+//            ItemStack droppedStack = new ItemStack(Items.ARMOR_STAND);
+//            var newEntityTag = originalData.copy();
+//            newEntityTag.remove("UUID");
+//            droppedStack.getOrCreateNbt().put("OriginalEntityData", newEntityTag);
+//            droppedStack.getOrCreateNbt().putInt("CustomModelData", 10000);
+//            droppedStack.setCustomName(Text.of("Unknown entity " + originalData.getString("id")));
+//            Block.dropStack(this.getWorld(), this.getBlockPos(), droppedStack);
         }
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ARMOR_STAND_BREAK, this.getSoundCategory(), 1.0F, 1.0F);
         ((ServerWorld)this.getWorld()).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.OAK_PLANKS.getDefaultState()), this.getX(), this.getBodyY(0.6666666666666666), this.getZ(), 10, (double)(this.getWidth() / 4.0F), (double)(this.getHeight() / 4.0F), (double)(this.getWidth() / 4.0F), 0.05);
